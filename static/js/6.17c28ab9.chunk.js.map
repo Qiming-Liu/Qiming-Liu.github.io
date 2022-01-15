@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/Weather/index.js"],"names":["Weather"],"mappings":"8JAMeA,UAJC,IACP,yB","file":"static/js/6.17c28ab9.chunk.js","sourcesContent":["import './index.css';\n\nconst Weather = () => {\n  return <div></div>;\n};\n\nexport default Weather;\n"],"sourceRoot":""}
