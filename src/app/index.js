@@ -13,10 +13,14 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
+import { singlePages } from './config';
+
+const singlePagesLabel = singlePages.map(({ name, path }) => ({
+  Page: lazy(() => import(`pages/${name}`)),
+  path,
+}));
 
 const Home = lazy(() => import('pages/Home'));
-const Resume = lazy(() => import('pages/Resume'));
-// const Articles = lazy(() => import('pages/Articles'));
 const Page404 = lazy(() => import('pages/404'));
 
 export const AppContext = createContext();
@@ -67,8 +71,13 @@ const AppRoutes = () => {
                 <Suspense fallback={<Fragment />}>
                   <Routes location={location} key={pathname}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/resume" element={<Resume />} />
-                    {/* <Route path="/articles" element={<Articles} /> /> */}
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/index" element={<Home />} />
+
+                    {singlePagesLabel.map(({ Page, path }) => (
+                      <Route path={path} element={<Page />} />
+                    ))}
+
                     <Route path="*" element={<Page404 />} />
                   </Routes>
                 </Suspense>

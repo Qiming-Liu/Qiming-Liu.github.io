@@ -1,7 +1,7 @@
 import './index.css';
 
 const Resume = () => {
-  return <div></div>;
+  return <div>Coming Soon</div>;
 };
 
 export default Resume;

@@ -27,7 +27,13 @@ const ProfileText = ({ status, titleId }) => (
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      I’m Qiming, currently I studying at University of Adelaide.
+      My name is Qiming and I am studying at the University of Adelaide. Java and Typescript are my main programming development languages.
+    </Text>
+    <Text
+      className={classNames('profile__description', `profile__description--${status}`)}
+      size="l"
+    >
+      I enjoy trying out various new tools and libraries as challenges. My dream is to become a game developer and I am currently learning Unity and C#.
     </Text>
   </Fragment>
 );

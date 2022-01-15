@@ -1,3 +1,15 @@
+export const singlePages = [
+  {
+    name: 'Weather',
+    path: '/weather',
+    
+  },
+  {
+    name: 'Resume',
+    path: '/resume',
+  },
+];
+
 export const navLinks = [
   {
     label: 'Projects',
@@ -8,10 +20,10 @@ export const navLinks = [
     label: 'Weather',
     pathname: '/weather',
   },
-  // {
-  //   label: 'Resume',
-  //   pathname: '/resume',
-  // },
+  {
+    label: 'Resume',
+    pathname: '/resume',
+  },
   {
     label: 'About',
     pathname: '/',
@@ -20,6 +32,11 @@ export const navLinks = [
 ];
 
 export const socialLinks = [
+  {
+    label: 'Linkedin',
+    url: 'https://github.com/Qiming-Liu',
+    icon: 'linkedin',
+  },
   {
     label: 'Github',
     url: 'https://github.com/Qiming-Liu',

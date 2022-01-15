@@ -6,12 +6,12 @@ import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
-import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
 import { tokens } from 'components/ThemeProvider/theme';
 import Heading from 'components/Heading';
 import Section from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
 import VisuallyHidden from 'components/VisuallyHidden';
+import Icon from 'components/Icon';
 import './index.css';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
@@ -143,7 +143,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                   { 'intro__mobile-scroll-indicator--hidden': scrollIndicatorHidden }
                 )}
               >
-                <ArrowDown aria-hidden />
+                <Icon icon="arrowDown" aria-hidden />
               </div>
             )}
           </Fragment>
