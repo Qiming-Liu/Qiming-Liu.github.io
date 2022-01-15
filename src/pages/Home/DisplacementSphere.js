@@ -54,7 +54,6 @@ const DisplacementSphere = props => {
       canvas: canvasRef.current,
       antialias: false,
       powerPreference: 'high-performance',
-      alpha: true,
     });
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);

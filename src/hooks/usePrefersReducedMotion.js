@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { reducedMotionConfig } from 'app/config';
 
 function usePrefersReducedMotion() {
   const [reduceMotion, setReduceMotion] = useState(
@@ -20,6 +21,7 @@ function usePrefersReducedMotion() {
     };
   }, []);
 
+  if (!reducedMotionConfig) return false;
   return reduceMotion;
 }
 

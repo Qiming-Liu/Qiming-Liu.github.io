@@ -4,26 +4,8 @@ import { usePrefersReducedMotion } from 'hooks';
 import { spring, chain, delay, value } from 'popmotion';
 import VisuallyHidden from 'components/VisuallyHidden';
 import prerender from 'utils/prerender';
+import { glyphList } from 'app/config';
 import './index.css';
-
-// prettier-ignore
-const glyphs = [
-  'ア', 'イ', 'ウ', 'エ', 'オ',
-  'カ', 'キ', 'ク', 'ケ', 'コ',
-  'サ', 'シ', 'ス', 'セ', 'ソ',
-  'タ', 'チ', 'ツ', 'テ', 'ト',
-  'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
-  'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
-  'マ', 'ミ', 'ム', 'メ', 'モ',
-  'ヤ', 'ユ', 'ヨ', 'ー',
-  'ラ', 'リ', 'ル', 'レ', 'ロ',
-  'ワ', 'ヰ', 'ヱ', 'ヲ', 'ン',
-  'ガ', 'ギ', 'グ', 'ゲ', 'ゴ',
-  'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ',
-  'ダ', 'ヂ', 'ヅ', 'デ', 'ド',
-  'バ', 'ビ', 'ブ', 'ベ', 'ボ',
-  'パ', 'ピ', 'プ', 'ペ', 'ポ',
-];
 
 const CharType = {
   Glyph: 'glyph',
@@ -37,8 +19,8 @@ function shuffle(content, output, position) {
     }
 
     if (position % 1 < 0.5) {
-      const rand = Math.floor(Math.random() * glyphs.length);
-      return { type: CharType.Glyph, value: glyphs[rand] };
+      const rand = Math.floor(Math.random() * glyphList.length);
+      return { type: CharType.Glyph, value: glyphList[rand] };
     }
 
     return { type: CharType.Glyph, value: output[index].value };

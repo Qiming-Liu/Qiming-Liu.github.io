@@ -2,7 +2,6 @@ export const singlePages = [
   {
     name: 'Weather',
     path: '/weather',
-    
   },
   {
     name: 'Resume',
@@ -71,3 +70,7 @@ export const light = {
   colorTextBody: 'rgb(var(--rgbText) / 0.7)',
   colorTextLight: 'rgb(var(--rgbText) / 0.6)',
 };
+
+export const glyphList = ' *';
+
+export const reducedMotionConfig = false;
