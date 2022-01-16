@@ -15,10 +15,13 @@ import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
 import { singlePages } from './config';
 
-const singlePagesLabel = singlePages.map(({ name, path }) => ({
-  Page: lazy(() => import(`pages/${name}`)),
-  path,
-}));
+const singlePagesLabel = singlePages.map(({ name, path }) => {
+  const Page = lazy(() => import(`pages/${name}`));
+  return {
+    Page: Page,
+    path: path,
+  };
+});
 
 const Home = lazy(() => import('pages/Home'));
 const Page404 = lazy(() => import('pages/404'));
@@ -74,8 +77,8 @@ const AppRoutes = () => {
                     <Route path="/home" element={<Home />} />
                     <Route path="/index" element={<Home />} />
 
-                    {singlePagesLabel.map(({ Page, path }) => (
-                      <Route path={path} element={<Page />} />
+                    {singlePagesLabel.map(({ Page, path }, index) => (
+                      <Route path={path} element={<Page />} key={index}/>
                     ))}
 
                     <Route path="*" element={<Page404 />} />
