@@ -86,7 +86,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                   <span
                     className={classNames(
                       'intro__title-word',
-                      `intro__title-word--${status}`
+                      `intro__title-word--${status}`,
                     )}
                     style={{ '--delay': tokens.base.durationXS }}
                   >
