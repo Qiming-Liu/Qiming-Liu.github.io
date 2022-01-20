@@ -1,30 +1,23 @@
-import './index.css';
+// import './index.css';
 
-import axios from 'axios';
-import { useState } from 'react';
+// import axios from 'axios';
+// import { useState, useEffect } from 'react';
 
-const WeatherCard = () => {
-  const [getting, setGetting] = useState(false);
-  const [city, setCity] = useState('London');
-  const [lastCity, setLastCity] = useState('');
-  const [weatherData, setWeatherData] = useState([]);
+// const WeatherCard = () => {
+//   const [city, setCity] = useState('London');
+//   const [weatherData, setWeatherData] = useState([]);
 
-  const getWeather = async city => {
-    if (city === lastCity) return;
-    if (getting) return;
-    setGetting(true);
-    const { data } = await axios.get(
-      `http://api.weatherapi.com/v1/current.json?key=10ae5df6e5644e3c9d882939221701&q=${city}&aqi=no`
-    );
-    setGetting(false);
-    setLastCity(city);
-    setWeatherData(data);
-    console.log(data);
-  };
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const result = await axios(
+//         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}&units=metric`
+//       );
+//       setWeatherData(result.data);
+//     };
+//     fetchData();
+//   }, [city]);
 
-  getWeather(city);
+//   return <></>;
+// };
 
-  return <ul>{JSON.stringify(weatherData)}</ul>;
-};
-
-export default WeatherCard;
+// export default WeatherCard;
