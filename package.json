@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.5.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
+    "json-loader": "^0.5.7",
     "mdx-loader": "^3.0.2",
     "prettier": "^2.2.1",
     "react-scripts-postcss": "4.0.0-mod1",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.22",
+    "@reduxjs/toolkit": "^1.7.1",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
     "history": "^5.1.0",

@@ -31,7 +31,7 @@ const Weather = () => {
       <Suspense fallback={null}>
         <DisplacementSphere />
       </Suspense>
-      <ProjectContainer className="weather">
+      <ProjectContainer className="weathera">
         <ProjectHeader title={title} description={description} columns={columns} />
         <ProjectSection first>
           <WeatherCard />
