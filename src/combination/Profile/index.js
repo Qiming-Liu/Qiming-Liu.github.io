@@ -1,9 +1,6 @@
 import { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
-// import Link from 'components/Link';
-// import { Button } from 'components/Button';
-// import Divider from 'components/Divider';
 import DecoderText from 'components/DecoderText';
 import Image from 'components/Image';
 import Section from 'components/Section';
@@ -27,13 +24,21 @@ const ProfileText = ({ status, titleId }) => (
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      My name is Qiming and I am studying at the University of Adelaide. Java and Typescript are my main programming development languages.
+      My name is Qiming and I am studying at the University of Adelaide.
     </Text>
     <Text
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      I enjoy trying out various new tools and libraries as challenges. My dream is to become a game developer and I am currently learning Unity and C#.
+      I'm a Full-stack developer with 7+ years of experience in programming. Develop
+      fantastic features using React hooks with over 100+ stars on Github.
+    </Text>
+    <Text
+      className={classNames('profile__description', `profile__description--${status}`)}
+      size="l"
+    >
+      Implemented Front-end and Back-end CD/CI Pipeline, containerize and monitor web
+      application with Docker.
     </Text>
   </Fragment>
 );

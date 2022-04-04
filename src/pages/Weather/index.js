@@ -15,7 +15,7 @@ import {
 } from 'combination/ProjectLayout';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
-const WeatherCard = lazy(() => import('combination/WeatherCard'));
+// const WeatherCard = lazy(() => import('combination/WeatherCard'));
 
 const title = 'Weather Web Application';
 const description =
@@ -34,7 +34,7 @@ const Weather = () => {
       <ProjectContainer className="weathera">
         <ProjectHeader title={title} description={description} columns={columns} />
         <ProjectSection first>
-          <WeatherCard />
+          {/* <WeatherCard /> */}
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>

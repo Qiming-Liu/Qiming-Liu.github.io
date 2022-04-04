@@ -2,11 +2,10 @@ import './index.css';
 
 import Seen1 from 'assets/seen1.jpg';
 import Seen2 from 'assets/seen2.jpg';
-import WebSubtitlePlayer from 'assets/websubtitleplayer.png';
+import ThinkMoreForum from 'assets/ThinkMoreForum.png';
 import MyGuard1 from 'assets/myguard1.jpg';
 import MyGuard2 from 'assets/myguard2.jpg';
-import BattleKnight from 'assets/battleknight.jpg';
-
+import WebSubtitlePlayer from 'assets/websubtitleplayer.png';
 import phone from 'assets/phone.glb';
 import laptop from 'assets/laptop.glb';
 import Footer from 'components/Footer';
@@ -184,17 +183,17 @@ const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Web Subtitle Player"
-        description="A Local Web .srt (Subtitle) File Player. You can pause, play and adjust the font size."
+        title="ThinkMore Community Forum"
+        description="A forum build with Next.js, and Spring Booot"
         buttonText="View Project"
-        buttonLink="https://github.com/Qiming-Liu/WebSubtitlePlayer"
+        buttonLink="www.thinkmoreapp.com"
         model={{
           type: 'laptop',
           textures: [
             {
-              src: WebSubtitlePlayer,
-              srcSet: `${WebSubtitlePlayer} 980w, ${WebSubtitlePlayer} 1376w`,
-              placeholder: WebSubtitlePlayer,
+              src: ThinkMoreForum,
+              srcSet: `${ThinkMoreForum} 980w, ${ThinkMoreForum} 1376w`,
+              placeholder: ThinkMoreForum,
             },
           ],
         }}
@@ -231,17 +230,17 @@ const Home = () => {
         sectionRef={projectFour}
         visible={visibleSections.includes(projectFour.current)}
         index={4}
-        title="Battle Knight"
-        description="Phaser3 Web 2D Game"
+        title="Web Subtitle Player"
+        description="A Local Web .srt (Subtitle) File Player. You can pause, play and adjust the font size."
         buttonText="View Project"
-        buttonLink="https://github.com/Qiming-Liu/BattleKnight"
+        buttonLink="https://github.com/Qiming-Liu/WebSubtitlePlayer"
         model={{
           type: 'laptop',
           textures: [
             {
-              src: BattleKnight,
-              srcSet: `${BattleKnight} 980w, ${BattleKnight} 1376w`,
-              placeholder: BattleKnight,
+              src: WebSubtitlePlayer,
+              srcSet: `${WebSubtitlePlayer} 980w, ${WebSubtitlePlayer} 1376w`,
+              placeholder: WebSubtitlePlayer,
             },
           ],
         }}

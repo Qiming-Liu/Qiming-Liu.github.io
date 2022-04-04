@@ -15,14 +15,14 @@ export const navLinks = [
     pathname: '/',
     hash: '#project',
   },
-  {
-    label: 'Weather',
-    pathname: '/weather',
-  },
-  {
-    label: 'Resume',
-    pathname: '/resume',
-  },
+  // {
+  //   label: 'Weather',
+  //   pathname: '/weather',
+  // },
+  // {
+  //   label: 'Resume',
+  //   pathname: '/resume',
+  // },
   {
     label: 'About',
     pathname: '/',
@@ -33,7 +33,7 @@ export const navLinks = [
 export const socialLinks = [
   {
     label: 'Linkedin',
-    url: 'https://github.com/Qiming-Liu',
+    url: 'https://www.linkedin.com/in/alan-qiming-liu/',
     icon: 'linkedin',
   },
   {
@@ -43,7 +43,15 @@ export const socialLinks = [
   },
 ];
 
-export const disciplines = ['React.js', 'Vue.js', 'Node.js'];
+export const disciplines = [
+  'React.js',
+  'Next.js',
+  'Vue.js',
+  'Node.js',
+  'Spring',
+  'Docker',
+  'AWS',
+];
 
 export const dark = {
   themeId: 'dark',
