@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/pages/Weather/index.css"],"names":[],"mappings":"AAAA,SACI,eAAgB,CAChB,gBACJ","file":"18.e939b943.chunk.css","sourcesContent":["weathera {\n    max-width: 600px;\n    max-height: 800px;\n}"]}

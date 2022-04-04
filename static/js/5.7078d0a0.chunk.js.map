@@ -1,1 +1,0 @@
-{"version":3,"sources":["pages/Resume/index.js"],"names":["Resume"],"mappings":"8JAMeA,UAJA,IACN,+C","file":"static/js/5.7078d0a0.chunk.js","sourcesContent":["import './index.css';\n\nconst Resume = () => {\n  return <div>Coming Soon</div>;\n};\n\nexport default Resume;\n"],"sourceRoot":""}
