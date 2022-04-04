@@ -184,7 +184,7 @@ const Home = () => {
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
         title="ThinkMore Community Forum"
-        description="A forum build with Next.js, and Spring Booot"
+        description="A forum build with Next.js and Spring Boot"
         buttonText="View Project"
         buttonLink="www.thinkmoreapp.com"
         model={{
