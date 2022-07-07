@@ -24,21 +24,14 @@ const ProfileText = ({ status, titleId }) => (
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      My name is Qiming and I am studying at the University of Adelaide.
-    </Text>
-    <Text
-      className={classNames('profile__description', `profile__description--${status}`)}
-      size="l"
-    >
       I'm a Full-stack developer with 7+ years of experience in programming. Develop
-      fantastic features using React hooks with over 100+ stars on Github.
+      fantastic features with over 200+ stars on Github.
     </Text>
     <Text
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      Implemented Front-end and Back-end CD/CI Pipeline, containerize and monitor web
-      application with Docker.
+      I love coding, I am also an open source project contributor and have worked on Tabby and Definitelytyped.
     </Text>
   </Fragment>
 );

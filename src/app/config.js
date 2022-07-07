@@ -45,12 +45,10 @@ export const socialLinks = [
 
 export const disciplines = [
   'React.js',
-  'Next.js',
-  'Vue.js',
   'Node.js',
-  'Spring',
-  'Docker',
+  'Typescript',
   'AWS',
+  'Docker',
 ];
 
 export const dark = {
