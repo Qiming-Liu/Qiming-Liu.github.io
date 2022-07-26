@@ -207,7 +207,7 @@ const Home = () => {
         title="MyGuard"
         description="Raspberry Pi - Android - Sensor: Indoor Surveillance System (Firebase, Tensorflow.js, Cordova, cdnVue2)"
         buttonText="View Project"
-        buttonLink="https://github.com/Qiming-Liu/Seen"
+        buttonLink="https://github.com/Qiming-Liu/MyGuard"
         model={{
           type: 'phone',
           alt: 'App login screen',
