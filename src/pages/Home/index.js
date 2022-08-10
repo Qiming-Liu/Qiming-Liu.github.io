@@ -5,7 +5,7 @@ import Seen2 from 'assets/seen2.jpg';
 import ThinkMoreForum from 'assets/ThinkMoreForum.png';
 import MyGuard1 from 'assets/myguard1.jpg';
 import MyGuard2 from 'assets/myguard2.jpg';
-import WebSubtitlePlayer from 'assets/websubtitleplayer.png';
+import Scientific_Articles_Retrieval_Tool from 'assets/Scientific-Articles-Retrieval-Tool.png';
 import phone from 'assets/phone.glb';
 import laptop from 'assets/laptop.glb';
 import Footer from 'components/Footer';
@@ -230,17 +230,17 @@ const Home = () => {
         sectionRef={projectFour}
         visible={visibleSections.includes(projectFour.current)}
         index={4}
-        title="Web Subtitle Player"
-        description="A Local Web .srt (Subtitle) File Player. You can pause, play and adjust the font size."
+        title="Scientific Articles Retrieval Tool"
+        description="My Master Project about Natural Language Processing"
         buttonText="View Project"
-        buttonLink="https://github.com/Qiming-Liu/WebSubtitlePlayer"
+        buttonLink="https://github.com/Qiming-Liu/Scientific-Articles-Retrieval-Tool"
         model={{
           type: 'laptop',
           textures: [
             {
-              src: WebSubtitlePlayer,
-              srcSet: `${WebSubtitlePlayer} 980w, ${WebSubtitlePlayer} 1376w`,
-              placeholder: WebSubtitlePlayer,
+              src: Scientific_Articles_Retrieval_Tool,
+              srcSet: `${Scientific_Articles_Retrieval_Tool} 980w, ${Scientific_Articles_Retrieval_Tool} 1376w`,
+              placeholder: Scientific_Articles_Retrieval_Tool,
             },
           ],
         }}

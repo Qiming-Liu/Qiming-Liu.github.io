@@ -24,14 +24,14 @@ const ProfileText = ({ status, titleId }) => (
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      I'm a Full-stack developer with 7+ years of experience in programming. Develop
-      fantastic features with over 200+ stars on Github.
+      I'm an active Open-source contributor of Cross-platform Terminal Tabby and Microsoft's DefinitelyTyped. 
+      Develop fantastic features with over 200+ stars on Github. Implemented front-end and back-end CD/CI pipeline, containerize and monitor web application with Docker and Grafana. 
     </Text>
     <Text
       className={classNames('profile__description', `profile__description--${status}`)}
       size="l"
     >
-      I love coding, I am also an open source project contributor and have worked on Tabby and Definitelytyped.
+      I love coding. I am currently learning Unity and preparing for the AWS certification exam.
     </Text>
   </Fragment>
 );
