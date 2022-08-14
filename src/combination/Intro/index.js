@@ -90,8 +90,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                     )}
                     style={{ '--delay': tokens.base.durationXS }}
                   >
-                    Full Stack<br></br>
-                    Web Developer
+                    Full Stack Developer
                   </span>
                 </span>
                 <TransitionGroup

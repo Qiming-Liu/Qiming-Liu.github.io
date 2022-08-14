@@ -142,7 +142,7 @@ const Home = () => {
   return (
     <div className="home">
       <Helmet>
-        <title>Qiming Liu | Web Developer</title>
+        <title>Qiming Liu | Full Stack Developer</title>
         <link rel="prefetch" href={phone} as="fetch" />
         <link rel="prefetch" href={laptop} as="fetch" />
       </Helmet>
@@ -183,8 +183,8 @@ const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="ThinkMore Community Forum"
-        description="A forum build with Next.js and Spring Boot"
+        title="ThinkMore Forum"
+        description="A responsive community platform build with Next.js and Spring Boot"
         buttonText="View Project"
         buttonLink="https://www.thinkmoreapp.com"
         model={{
@@ -205,7 +205,7 @@ const Home = () => {
         visible={visibleSections.includes(projectThree.current)}
         index={3}
         title="MyGuard"
-        description="Raspberry Pi - Android - Sensor: Indoor Surveillance System (Firebase, Tensorflow.js, Cordova, cdnVue2)"
+        description="An Indoor Surveillance System using Raspberry Pi, Android and Sensors"
         buttonText="View Project"
         buttonLink="https://github.com/Qiming-Liu/MyGuard"
         model={{
@@ -231,7 +231,7 @@ const Home = () => {
         visible={visibleSections.includes(projectFour.current)}
         index={4}
         title="Scientific Articles Retrieval Tool"
-        description="My Master Project about Natural Language Processing"
+        description="My Master Project about Natural Language Processing showing relation nodes"
         buttonText="View Project"
         buttonLink="https://github.com/Qiming-Liu/Scientific-Articles-Retrieval-Tool"
         model={{

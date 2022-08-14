@@ -46,9 +46,9 @@ export const socialLinks = [
 export const disciplines = [
   'React.js',
   'Node.js',
-  'Typescript',
-  'AWS',
+  'TypeScript',
   'Docker',
+  '.Net'
 ];
 
 export const dark = {
@@ -77,6 +77,6 @@ export const light = {
   colorTextLight: 'rgb(var(--rgbText) / 0.6)',
 };
 
-export const glyphList = ' *';
+export const glyphList = ' ALNQIMGLU';
 
 export const reducedMotionConfig = false;
