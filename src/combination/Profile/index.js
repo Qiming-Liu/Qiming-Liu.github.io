@@ -25,7 +25,7 @@ const ProfileText = ({ status, titleId }) => (
       size="l"
     >
       I'm an active Open-source contributor of Cross-platform Terminal Tabby and Microsoft's DefinitelyTyped. 
-      Develop fantastic features with over 200+ stars on Github. Implemented front-end and back-end CD/CI pipeline, containerize and monitor web application with Docker and Grafana. 
+      Develop fantastic features with over 200+ stars on Github. Implemented front-end and back-end CI/CD pipeline, containerize and monitor web application with Docker and Grafana. 
     </Text>
     <Text
       className={classNames('profile__description', `profile__description--${status}`)}
