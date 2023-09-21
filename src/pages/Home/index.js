@@ -186,7 +186,7 @@ const Home = () => {
         title="ThinkMore Forum"
         description="A responsive community platform build with Next.js and Spring Boot"
         buttonText="View Project"
-        buttonLink="https://www.thinkmoreapp.com"
+        buttonLink="https://github.com/Qiming-Liu/ThinkMoreForum-Frontend"
         model={{
           type: 'laptop',
           textures: [
