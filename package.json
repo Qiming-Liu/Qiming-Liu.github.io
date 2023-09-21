@@ -10,7 +10,6 @@
     "mdx-loader": "^3.0.2",
     "prettier": "^2.2.1",
     "react-scripts-postcss": "4.0.0-mod1",
-    "react-snap": "1.23.0",
     "stylelint": "^14.0.0",
     "stylelint-config-recommended": "^3.0.0"
   },
@@ -28,8 +27,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "postbuild": "react-snap"
+    "build": "react-scripts build"
   },
   "reactSnap": {
     "skipThirdPartyRequests": true,
