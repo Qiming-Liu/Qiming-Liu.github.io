@@ -6,19 +6,17 @@ jobs:
     Build-Deploy:
         name: Build-Deploy
         runs-on: ubuntu-latest
-
+        strategy:
+          matrix:
+            node-version: [16.x]
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/checkout@v3
-              with:
-                  node-version: '16'
-
-            - name: 🔨 Build
-              run: |
-                  yarn
-                  yarn build
-            - name: 🎉 Deploy
-              uses: JamesIves/github-pages-deploy-action@v4
-              with:
-                branch: main
-                folder: build
+        - uses: actions/checkout@v3
+        - name: 🔨 Build
+          run: |
+              npm install
+              npm run build
+        - name: 🎉 Deploy
+          uses: JamesIves/github-pages-deploy-action@v4
+          with:
+            branch: main
+            folder: build
