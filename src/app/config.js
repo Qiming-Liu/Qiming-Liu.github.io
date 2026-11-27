@@ -1,28 +1,9 @@
-export const singlePages = [
-  {
-    name: 'Weather',
-    path: '/weather',
-  },
-  {
-    name: 'Resume',
-    path: '/resume',
-  },
-];
-
 export const navLinks = [
   {
     label: 'Projects',
     pathname: '/',
     hash: '#project',
   },
-  // {
-  //   label: 'Weather',
-  //   pathname: '/weather',
-  // },
-  // {
-  //   label: 'Resume',
-  //   pathname: '/resume',
-  // },
   {
     label: 'About',
     pathname: '/',
@@ -32,24 +13,18 @@ export const navLinks = [
 
 export const socialLinks = [
   {
-    label: 'Linkedin',
+    label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/alan-qiming-liu/',
     icon: 'linkedin',
   },
   {
-    label: 'Github',
+    label: 'GitHub',
     url: 'https://github.com/Qiming-Liu',
     icon: 'github',
   },
 ];
 
-export const disciplines = [
-  'React.js',
-  'Node.js',
-  'TypeScript',
-  'Docker',
-  '.Net'
-];
+export const disciplines = ['React', 'TypeScript', 'Node.js', 'Python', '.NET', 'Docker'];
 
 export const dark = {
   themeId: 'dark',

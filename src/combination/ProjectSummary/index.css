@@ -50,7 +50,7 @@
   grid-template-columns: 40% 1fr;
   grid-column-gap: var(--space2XL);
 
-  @nest .project-summary--alternate & {
+  .project-summary--alternate & {
     grid-template-columns: 1fr 40%;
   }
 
@@ -61,7 +61,7 @@
   }
 
   @media (--mediaTablet) {
-    @nest .project-summary--alternate & {
+    .project-summary--alternate & {
       grid-template-columns: 100%;
     }
   }
@@ -293,4 +293,15 @@
 .project-summary__button--entered {
   transform: none;
   opacity: 1;
+}
+
+.project-summary__model--steam-deck {
+  --width: 150%;
+  --aspectRatio: 10 / 16;
+
+  @media (--mediaTablet) {
+    & {
+      --width: 140%;
+    }
+  }
 }

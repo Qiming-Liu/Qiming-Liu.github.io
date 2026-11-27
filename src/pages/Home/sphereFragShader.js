@@ -15,7 +15,6 @@ varying float noise;
 #include <packing>
 #include <color_pars_fragment>
 #include <uv_pars_fragment>
-#include <uv2_pars_fragment>
 #include <map_pars_fragment>
 #include <alphamap_pars_fragment>
 #include <aomap_pars_fragment>
@@ -24,6 +23,7 @@ varying float noise;
 #include <envmap_pars_fragment>
 #include <gradientmap_pars_fragment>
 #include <fog_pars_fragment>
+#include <normal_pars_fragment>
 #include <bsdfs>
 #include <lights_pars_begin>
 #include <envmap_physical_pars_fragment>
@@ -64,7 +64,7 @@ void main() {
   #include <envmap_fragment>
   #include <premultiplied_alpha_fragment>
   #include <tonemapping_fragment>
-  #include <encodings_fragment>
+  #include <colorspace_fragment>
   #include <fog_fragment>
 
   gl_FragColor = vec4(outgoingLight, diffuseColor.a);

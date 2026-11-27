@@ -13,6 +13,7 @@
 
 .footer__link {
   display: inline-flex;
+  padding: 0 var(--spaceXS);
 }
 
 .footer__date {
