@@ -1,0 +1,272 @@
+import{A as e,C as t,E as n,M as r,O as i,_ as a,g as o,k as s,n as c,p as l,s as u,u as d}from"./index-DRbZFdWa.js";import{c as f,s as p}from"./Text-14uviYTi.js";import{_ as m,a as h,c as g,d as _,f as v,g as y,h as b,i as x,l as S,m as C,n as w,o as T,p as E,r as D,s as O,u as k}from"./Home-BKzhh6MW.js";var A=r(e(),1),j=r(s(),1),M=`
+#define PHONG
+
+uniform vec3 diffuse;
+uniform vec3 emissive;
+uniform vec3 specular;
+uniform float shininess;
+uniform float opacity;
+uniform float time;
+varying vec2 vUv;
+varying vec3 newPosition;
+varying float noise;
+
+#include <common>
+#include <packing>
+#include <color_pars_fragment>
+#include <uv_pars_fragment>
+#include <map_pars_fragment>
+#include <alphamap_pars_fragment>
+#include <aomap_pars_fragment>
+#include <lightmap_pars_fragment>
+#include <emissivemap_pars_fragment>
+#include <envmap_pars_fragment>
+#include <gradientmap_pars_fragment>
+#include <fog_pars_fragment>
+#include <normal_pars_fragment>
+#include <bsdfs>
+#include <lights_pars_begin>
+#include <envmap_physical_pars_fragment>
+#include <lights_phong_pars_fragment>
+#include <shadowmap_pars_fragment>
+#include <bumpmap_pars_fragment>
+#include <normalmap_pars_fragment>
+#include <specularmap_pars_fragment>
+#include <logdepthbuf_pars_fragment>
+#include <clipping_planes_pars_fragment>
+
+void main() {
+  #include <clipping_planes_fragment>
+
+  vec3 color = vec3(vUv * (0.2 - 1.7 * noise), 1.0);
+  vec3 finalColors = vec3(color.g * 2.5 , color.r * 3.5 , color.b * 0.1);
+  vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0);
+  ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
+  vec3 totalEmissiveRadiance = emissive;
+
+  #include <logdepthbuf_fragment>
+  #include <map_fragment>
+  #include <color_fragment>
+  #include <alphamap_fragment>
+  #include <alphatest_fragment>
+  #include <specularmap_fragment>
+  #include <normal_fragment_begin>
+  #include <normal_fragment_maps>
+  #include <emissivemap_fragment>
+  #include <lights_phong_fragment>
+  #include <lights_fragment_begin>
+  #include <lights_fragment_maps>
+  #include <lights_fragment_end>
+  #include <aomap_fragment>
+
+  vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;
+
+  #include <envmap_fragment>
+  #include <premultiplied_alpha_fragment>
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
+  #include <fog_fragment>
+
+  gl_FragColor = vec4(outgoingLight, diffuseColor.a);
+}
+`,N=`
+vec3 mod289(vec3 x)
+{
+  return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 mod289(vec4 x)
+{
+  return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 permute(vec4 x)
+{
+  return mod289(((x*34.0)+1.0)*x);
+}
+
+vec4 taylorInvSqrt(vec4 r)
+{
+  return 1.79284291400159 - 0.85373472095314 * r;
+}
+
+vec3 fade(vec3 t) {
+  return t*t*t*(t*(t*6.0-15.0)+10.0);
+}
+
+// Classic Perlin noise
+float cnoise(vec3 P)
+{
+  vec3 Pi0 = floor(P); // Integer part for indexing
+  vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1
+  Pi0 = mod289(Pi0);
+  Pi1 = mod289(Pi1);
+  vec3 Pf0 = fract(P); // Fractional part for interpolation
+  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0
+  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+  vec4 iy = vec4(Pi0.yy, Pi1.yy);
+  vec4 iz0 = Pi0.zzzz;
+  vec4 iz1 = Pi1.zzzz;
+
+  vec4 ixy = permute(permute(ix) + iy);
+  vec4 ixy0 = permute(ixy + iz0);
+  vec4 ixy1 = permute(ixy + iz1);
+
+  vec4 gx0 = ixy0 * (1.0 / 7.0);
+  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+  gx0 = fract(gx0);
+  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+  vec4 sz0 = step(gz0, vec4(0.0));
+  gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+  gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+  vec4 gx1 = ixy1 * (1.0 / 7.0);
+  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+  gx1 = fract(gx1);
+  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+  vec4 sz1 = step(gz1, vec4(0.0));
+  gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+  gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+
+  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+  g000 *= norm0.x;
+  g010 *= norm0.y;
+  g100 *= norm0.z;
+  g110 *= norm0.w;
+  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+  g001 *= norm1.x;
+  g011 *= norm1.y;
+  g101 *= norm1.z;
+  g111 *= norm1.w;
+
+  float n000 = dot(g000, Pf0);
+  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+  float n111 = dot(g111, Pf1);
+
+  vec3 fade_xyz = fade(Pf0);
+  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+  return 2.2 * n_xyz;
+}
+
+// Classic Perlin noise, periodic variant
+float pnoise(vec3 P, vec3 rep)
+{
+  vec3 Pi0 = mod(floor(P), rep); // Integer part, modulo period
+  vec3 Pi1 = mod(Pi0 + vec3(1.0), rep); // Integer part + 1, mod period
+  Pi0 = mod289(Pi0);
+  Pi1 = mod289(Pi1);
+  vec3 Pf0 = fract(P); // Fractional part for interpolation
+  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0
+  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+  vec4 iy = vec4(Pi0.yy, Pi1.yy);
+  vec4 iz0 = Pi0.zzzz;
+  vec4 iz1 = Pi1.zzzz;
+
+  vec4 ixy = permute(permute(ix) + iy);
+  vec4 ixy0 = permute(ixy + iz0);
+  vec4 ixy1 = permute(ixy + iz1);
+
+  vec4 gx0 = ixy0 * (1.0 / 7.0);
+  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+  gx0 = fract(gx0);
+  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+  vec4 sz0 = step(gz0, vec4(0.0));
+  gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+  gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+  vec4 gx1 = ixy1 * (1.0 / 7.0);
+  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+  gx1 = fract(gx1);
+  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+  vec4 sz1 = step(gz1, vec4(0.0));
+  gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+  gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+
+  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+  g000 *= norm0.x;
+  g010 *= norm0.y;
+  g100 *= norm0.z;
+  g110 *= norm0.w;
+  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+  g001 *= norm1.x;
+  g011 *= norm1.y;
+  g101 *= norm1.z;
+  g111 *= norm1.w;
+
+  float n000 = dot(g000, Pf0);
+  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+  float n111 = dot(g111, Pf1);
+
+  vec3 fade_xyz = fade(Pf0);
+  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+  return 2.2 * n_xyz;
+}
+
+float turbulence(vec3 p) {
+  float w = 100.0;
+  float t = -.5;
+  for (float f = 1.0 ; f <= 10.0 ; f++) {
+    float power = pow(2.0, f);
+    t += abs(pnoise(vec3(power * p), vec3(10.0, 10.0, 10.0)) / power);
+  }
+  return t;
+}
+
+// START
+uniform float time;
+varying vec2 vUv;
+varying vec3 vNormal;
+varying float noise;
+
+varying vec3 vViewPosition;
+
+void main() {
+  #include <beginnormal_vertex>
+  #include <defaultnormal_vertex>
+  #include <begin_vertex>
+  #include <project_vertex>
+  #ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
+    vNormal = normalize(transformedNormal);
+  #endif
+
+  vViewPosition = - mvPosition.xyz;
+
+  vUv = uv;
+
+  noise = turbulence(0.01 * position + normal + time * 0.8);
+  vec3 displacement = vec3((position.x) * noise, position.y * noise, position.z * noise);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4((position + normal) + displacement, 1.0);
+}
+`,P=i(),F=e=>{let{rgbBackground:r,themeId:i,colorWhite:s}=c(),F=(0,A.useRef)(Date.now()),I=(0,A.useRef)(),L=(0,A.useRef)(),R=(0,A.useRef)(),z=(0,A.useRef)(),B=(0,A.useRef)(),V=(0,A.useRef)(),H=(0,A.useRef)(),U=(0,A.useRef)(),W=(0,A.useRef)(),G=(0,A.useRef)(),K=(0,A.useRef)(),q=(0,A.useRef)(),J=o(),Y=a(I),X=l();return(0,A.useEffect)(()=>{let{innerWidth:e,innerHeight:t}=window;return L.current=new m(.8,.5),R.current=new T({canvas:I.current,antialias:!1,powerPreference:`high-performance`}),R.current.setSize(e,t),R.current.setPixelRatio(1),R.current.outputColorSpace=E,z.current=new v(54,e/t,.1,100),z.current.position.z=52,B.current=new C,U.current=new _,U.current.onBeforeCompile=e=>{H.current=y.merge([h.ambient,h.lights,e.uniforms,{time:{type:`f`,value:0}}]),e.uniforms=H.current,e.vertexShader=N,e.fragmentShader=M},W.current=new b(32,128,128),G.current=new k(W.current,U.current),G.current.position.z=0,G.current.modifier=Math.random(),B.current.add(G.current),()=>{D(B.current),w(R.current)}},[]),(0,A.useEffect)(()=>{let e=new S(s,.6*Math.PI),t=new O(s,(i===`light`?.8:.1)*Math.PI);return e.position.z=200,e.position.x=100,e.position.y=100,V.current=[e,t],B.current.background=new g().setRGB(...n(r),E),V.current.forEach(e=>B.current.add(e)),()=>{x(V.current)}},[r,s,i]),(0,A.useEffect)(()=>{let{width:e,height:n}=X,r=n+n*.3;R.current.setSize(e,r),z.current.aspect=e/r,z.current.updateProjectionMatrix(),J&&R.current.render(B.current,z.current),e<=t.mobile?(G.current.position.x=14,G.current.position.y=10):e<=t.tablet?(G.current.position.x=18,G.current.position.y=14):(G.current.position.x=22,G.current.position.y=16)},[J,X]),(0,A.useEffect)(()=>{let e=e=>{let{rotation:t}=G.current,n={x:e.clientX/window.innerWidth,y:e.clientY/window.innerHeight};q.current||=p(t.toArray(),e=>t.set(e[0],e[1],G.current.rotation.z)),K.current=f({from:q.current.get(),to:[n.y/2,n.x/2],stiffness:30,damping:20,velocity:q.current.getVelocity(),mass:2,restSpeed:1e-4}).start(q.current)};return!J&&Y&&window.addEventListener(`mousemove`,e),()=>{window.removeEventListener(`mousemove`,e),K.current?.stop()}},[Y,J]),(0,A.useEffect)(()=>{let e,t=()=>{e=requestAnimationFrame(t),H.current!==void 0&&(H.current.time.value=5e-5*(Date.now()-F.current)),G.current.rotation.z+=.001,R.current.render(B.current,z.current)};return!J&&Y?t():R.current.render(B.current,z.current),()=>{cancelAnimationFrame(e)}},[Y,J]),(0,P.jsx)(d,{appear:!0,in:!0,onEnter:u,timeout:3e3,children:t=>(0,P.jsx)(`canvas`,{"aria-hidden":!0,className:(0,j.default)(`displacement-sphere`,`displacement-sphere--${t}`),ref:I,...e})})};export{F as default};
