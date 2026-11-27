@@ -23,6 +23,7 @@ const ProjectSummary = ({
   model,
   buttonText,
   buttonLink,
+  buttons = [{ text: buttonText, href: buttonLink }],
   alternate,
   ...rest
 }) => {
@@ -76,9 +77,11 @@ const ProjectSummary = ({
           `project-summary__button--${status}`
         )}
       >
-        <Button iconHoverShift href={buttonLink} iconEnd="arrowRight">
-          {buttonText}
-        </Button>
+        {buttons.map(({ text, href }) => (
+          <Button iconHoverShift href={href} iconEnd="arrowRight" key={href}>
+            {text}
+          </Button>
+        ))}
       </div>
     </div>
   );
@@ -125,6 +128,8 @@ const ProjectSummary = ({
                 ...model.textures[0],
                 sizes: laptopSizes,
               },
+              // Extra screens shown in turn on the same device
+              slides: model.textures.slice(1),
             },
           ]}
         />

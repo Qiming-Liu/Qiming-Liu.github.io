@@ -24,7 +24,7 @@ import {
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { delay, chain, spring, value } from 'popmotion';
+import { delay, chain, spring, tween, value } from 'popmotion';
 import { getImageFromSrcSet } from 'utils/image';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { cleanScene, cleanRenderer, removeLights } from 'utils/three';
@@ -127,9 +127,7 @@ const Model = ({
     renderTargetBlur.current.texture.generateMipmaps = false;
 
     // Make a plane and make it face up
-    const planeGeometry = new PlaneGeometry(planeWidth, planeHeight).rotateX(
-      Math.PI / 2
-    );
+    const planeGeometry = new PlaneGeometry(planeWidth, planeHeight).rotateX(Math.PI / 2);
 
     const planeMaterial = new MeshBasicMaterial({
       map: renderTarget.current.texture,
@@ -194,7 +192,7 @@ const Model = ({
     verticalBlurMaterial.current = new ShaderMaterial(VerticalBlurShader);
     verticalBlurMaterial.current.depthTest = false;
 
-    const applyScreenTexture = async (texture, node) => {
+    const prepareTexture = async texture => {
       texture.colorSpace = SRGBColorSpace;
       texture.minFilter = LinearFilter;
       texture.magFilter = LinearFilter;
@@ -204,6 +202,11 @@ const Model = ({
 
       // Decode the texture to prevent jank on first render
       await renderer.current.initTexture(texture);
+      return texture;
+    };
+
+    const applyScreenTexture = async (texture, node) => {
+      await prepareTexture(texture);
 
       node.material.color = new Color(0xffffff);
       node.material.transparent = false;
@@ -214,8 +217,9 @@ const Model = ({
 
     // Build an array of promises to fetch and apply models & animations
     const modelConfigPromises = models.map(async (model, index) => {
-      const { texture, position, url, build } = model;
+      const { texture, position, url, build, slides = [] } = model;
       let loadFullResTexture;
+      let screenNode;
 
       // Models are either a .glb file or built in code (see steamDeck.js)
       const [gltf, placeholder] = await Promise.all([
@@ -224,11 +228,13 @@ const Model = ({
       ]);
 
       gltf.scene.traverse(async node => {
-        if (node.material) {
+        // Built-in models bring their own colors
+        if (node.material && !build) {
           node.material.color = new Color(0x1f2025);
         }
 
         if (node.name === MeshType.Screen) {
+          screenNode = node;
           applyScreenTexture(placeholder, node);
           loadFullResTexture = async () => {
             const image = await getImageFromSrcSet(texture);
@@ -250,7 +256,65 @@ const Model = ({
         showDelay,
       });
 
-      return { ...animation, loadFullResTexture };
+      // Cross-fade the screen through extra textures. Returns a stop function.
+      let textures;
+      let fade;
+      let current = 0;
+
+      const startSlides = async () => {
+        if (!slides.length || !screenNode) return () => {};
+
+        if (!textures) {
+          textures = [
+            screenNode.material.map,
+            ...(await Promise.all(
+              slides.map(async slide => {
+                const image = await getImageFromSrcSet(slide);
+                return prepareTexture(await textureLoader.current.loadAsync(image));
+              })
+            )),
+          ];
+
+          // A copy of the screen on top that fades in the next texture
+          fade = screenNode.clone();
+          fade.name = 'ScreenFade';
+          fade.material = screenNode.material.clone();
+          fade.material.transparent = true;
+          fade.material.opacity = 0;
+          fade.position.z += 0.05;
+          screenNode.parent.add(fade);
+        }
+
+        let fadeTween;
+
+        const showNext = () => {
+          const next = (current + 1) % textures.length;
+          fade.material.map = textures[next];
+          fade.material.needsUpdate = true;
+
+          fadeTween = tween({ from: 0, to: 1, duration: reduceMotion ? 0 : 800 }).start({
+            update: opacity => {
+              fade.material.opacity = opacity;
+              renderFrame();
+            },
+            complete: () => {
+              screenNode.material.map = textures[next];
+              fade.material.opacity = 0;
+              current = next;
+              renderFrame();
+            },
+          });
+        };
+
+        const interval = setInterval(showNext, 4000);
+
+        return () => {
+          clearInterval(interval);
+          fadeTween?.stop();
+        };
+      };
+
+      return { ...animation, loadFullResTexture, startSlides };
     });
 
     setModelData(modelConfigPromises);
@@ -319,6 +383,8 @@ const Model = ({
 
   useEffect(() => {
     let introSprings = [];
+    let stopSlides = [];
+    let cancelled = false;
 
     if (!modelData) return;
 
@@ -343,6 +409,10 @@ const Model = ({
         // Load full res screen texture
         await model.loadFullResTexture();
 
+        const stop = await model.startSlides();
+        if (cancelled) stop();
+        else stopSlides.push(stop);
+
         // Render the loaded texture
         if (reduceMotion) {
           renderFrame();
@@ -357,8 +427,12 @@ const Model = ({
     }
 
     return () => {
+      cancelled = true;
       for (const spring of introSprings) {
         spring.stop();
+      }
+      for (const stop of stopSlides) {
+        stop();
       }
     };
   }, [modelData, reduceMotion, renderFrame, show]);
@@ -419,11 +493,12 @@ const Model = ({
       renderFrame();
     };
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    // Watch the container itself: layout can change without a window resize
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(container.current);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
     };
   }, [renderFrame]);
 

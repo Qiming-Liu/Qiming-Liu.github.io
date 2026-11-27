@@ -275,6 +275,9 @@
 }
 
 .project-summary__button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceM);
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
@@ -300,6 +303,12 @@
   --aspectRatio: 10 / 16;
 
   @media (--mediaTablet) {
+    & {
+      --width: 120%;
+    }
+  }
+
+  @media (--mediaMobile) {
     & {
       --width: 140%;
     }

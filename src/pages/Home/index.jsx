@@ -30,35 +30,20 @@ const screen = (src, widths) => ({
 
 const projects = [
   {
-    title: 'DeckyGCM',
+    title: 'Steam Deck Plugins',
     description:
-      'A Decky Loader plugin for finding, downloading and running game trainers on Steam Deck, powered by Game Cheats Manager.',
-    buttonLink: 'https://github.com/Qiming-Liu/Decky-Game-Cheats-Manager',
+      'Decky Loader plugins that make the Steam Deck do more. DeckyGCM finds, downloads and runs game trainers with Game Cheats Manager. CreamDeck manages Steam DLC unlockers with SmokeAPI and CreamAPI.',
+    buttons: [
+      {
+        text: 'DeckyGCM',
+        href: 'https://github.com/Qiming-Liu/Decky-Game-Cheats-Manager',
+      },
+      { text: 'CreamDeck', href: 'https://github.com/Qiming-Liu/CreamDeck' },
+    ],
     model: {
       type: 'steamDeck',
-      alt: 'DeckyGCM trainer page on a Steam Deck',
-      textures: [screen(DeckyGCM, [1280])],
-    },
-  },
-  {
-    title: 'CreamDeck',
-    description:
-      'A Decky Loader plugin for managing Steam DLC unlockers on Steam Deck with SmokeAPI and CreamAPI.',
-    buttonLink: 'https://github.com/Qiming-Liu/CreamDeck',
-    model: {
-      type: 'steamDeck',
-      alt: 'CreamDeck DLC list on a Steam Deck',
-      textures: [screen(CreamDeck, [1280])],
-    },
-  },
-  {
-    title: 'Android Native App - Seen',
-    description: 'An easy forum Android app with instant messaging.',
-    buttonLink: 'https://github.com/Qiming-Liu/Seen',
-    model: {
-      type: 'phone',
-      alt: 'Seen app screens',
-      textures: [screen(Seen1, [254, 508]), screen(Seen2, [254, 508])],
+      alt: 'DeckyGCM and CreamDeck running on a Steam Deck',
+      textures: [screen(DeckyGCM, [1280]), screen(CreamDeck, [1280])],
     },
   },
   {
@@ -72,14 +57,13 @@ const projects = [
     },
   },
   {
-    title: 'MyGuard',
-    description:
-      'An indoor surveillance system using Raspberry Pi, Android and sensors.',
-    buttonLink: 'https://github.com/Qiming-Liu/MyGuard',
+    title: 'Android Native App - Seen',
+    description: 'An easy forum Android app with instant messaging.',
+    buttonLink: 'https://github.com/Qiming-Liu/Seen',
     model: {
       type: 'phone',
-      alt: 'MyGuard app screens',
-      textures: [screen(MyGuard2, [254, 508]), screen(MyGuard1, [254, 508])],
+      alt: 'Seen app screens',
+      textures: [screen(Seen1, [254, 508]), screen(Seen2, [254, 508])],
     },
   },
   {
@@ -91,6 +75,16 @@ const projects = [
       type: 'laptop',
       alt: 'Graph of related articles',
       textures: [screen(ScientificArticles, [980, 1376])],
+    },
+  },
+  {
+    title: 'MyGuard',
+    description: 'An indoor surveillance system using Raspberry Pi, Android and sensors.',
+    buttonLink: 'https://github.com/Qiming-Liu/MyGuard',
+    model: {
+      type: 'phone',
+      alt: 'MyGuard app screens',
+      textures: [screen(MyGuard2, [254, 508]), screen(MyGuard1, [254, 508])],
     },
   },
 ];
@@ -108,11 +102,7 @@ const Home = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    const revealSections = [
-      intro,
-      ...projectRefs.current,
-      about,
-    ];
+    const revealSections = [intro, ...projectRefs.current, about];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
